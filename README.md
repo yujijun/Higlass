@@ -8,7 +8,7 @@ Cistrome DB data visualization flow：
 4. Extract the chr22 data and conver them to bedfile with different resolution in kraken 
 5. Extrate the chr peak position information and generate peak postion matrix in kraken 
 6. Cluster all samples by peak position matrix and visulation in kraken or locally
-7. Select sample by cluster visulization result and generate 
+7. Select sample by cluster visulization result and generate seleted sample name file 
 8. Generate whole genome bedfile and sorted it 
 8.1 Generate whole genomes bedfile with the specific resolution
 8.2 Cluster selected samples again by peak_pos_chr22.csv and generate seleted sample name file with clustered order(Visulation)

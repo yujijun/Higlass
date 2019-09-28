@@ -101,5 +101,7 @@ figuresize = (60,10)
 out = '/Users/yujijun/Desktop/'
 #create diagram of cluster with the method of average:
 Cluster_lables_average_cor_543 = ClusterPlot.clusterplot(dist_mat, sample_name_withID, sample_color_dict, Distance, Method, figurename, figuresize, out, havexlabel=True)
-     
+with open('/Users/yujijun/Desktop/cluster_sample_name.txt', 'w') as f:
+    for item in Cluster_lables_average_cor_543:
+        f.write("%s\n" %item)
 
