@@ -80,6 +80,7 @@ for a in range(len(allchrname_list)):
         try:
             bw = pyBigWig.open(input_file)
         except RuntimeError:
+            del sample_list[b]
             print("This is a error file.")
             continue
         if (chromo in bw.chroms().keys()):
