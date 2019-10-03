@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --nodes=1
-#SBATCH --mem=30G                    # Memory total in MB (for all cores)
+#SBATCH --mem=300G                    # Memory total in MB (for all cores)
 #SBATCH -o jjyu_%j.out                 # File to which STDOUT will be written, including job ID
 #SBATCH -e jjyu_%j.err                 # File to which STDERR will be written, including job ID
 #SBATCH --mail-type=FAIL                    # Type of email notification- BEGIN,END,FAIL,ALL
@@ -25,5 +25,5 @@ unset __conda_setup
 for sample in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
 do
 		conda activate higlass
-		python bw_to_bedfile_kraken.py $sample  &
+		python bw_to_bedfile_kraken.py $sample  & 
 done
