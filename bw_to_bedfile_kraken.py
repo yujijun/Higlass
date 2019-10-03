@@ -36,6 +36,7 @@ bw_name = [sampleid + "_treat.bw" for sampleid in sample_ID]
 #all chr name list:
 allchrname_list = allchrinfo.iloc[0:24,0].tolist()
 
+allchrname_length = allchrinfo.iloc[0:24,1].tolist()
 #defind a normalization function
 def normalization(x):
     Whole_mean = sum(x)/len(x)
@@ -46,15 +47,19 @@ def normalization(x):
 #test
 bw_name = bw_name[0:222]
 sample_list = sample_list[0:222]
+
 print(int(sys.argv[1]))
+
 allchrname_list = [[allchrname] for allchrname in allchrname_list] #this just for run chr one by one 
 allchrname_list = allchrname_list[int(sys.argv[1])]
+allchrname_length = [[i] for i in allchrname_length]
+allchrname_length = allchrname_length[int(sys.argv[1])]
 
 for a in range(len(allchrname_list)):
     starttime = datetime.datetime.now()
-    chromo = allchrname_list[a]
+    chromo = allchrname_list[0]
     #Firsthalf
-    length_chromo = allchrinfo.loc[a,1]
+    length_chromo = allchrname_length[0]
     #Firsthalf_empty
     df_Firsthalf_empty = pd.DataFrame(columns=["chr_name", "start", "end"])
     df_Firsthalf_empty.chr_name = [chromo] * math.ceil(length_chromo/resolution)
@@ -63,10 +68,10 @@ for a in range(len(allchrname_list)):
     #lasthalf_empty
     df_lasthalf_empty = pd.DataFrame(columns = sample_list)
     for b in range(len(bw_name)):
-        bw = bw_name[b]
-        print("This is %s.th file:%s in %s" %(b+1,bw,chromo))
+        bw_file = bw_name[b]
+        print("This is %s.th file:%s in %s" %(b+1,bw_file,chromo))
         #input_folder = 'dataset' + str(filter_data.DatsetId[i])
-        input_file = '%s/%s' %(Input_bw_path, bw)
+        input_file = '%s/%s' %(Input_bw_path, bw_file)
         try:
             bw = pyBigWig.open(input_file)
         except RuntimeError:
@@ -97,7 +102,8 @@ for a in range(len(allchrname_list)):
             print("\t")
             #concat two dataframe
     df_merge = pd.concat([df_Firsthalf_empty, df_lasthalf_empty], axis=1)
-    df_merge.to_csv('%s/bedfile_16_222_%s.csv' %(Output_path,chromo), sep='\t',index=False, header=True)
+    print("This is the shape of %s matrix: %s" %(chromo,df_merge.shape))
+    df_merge.to_csv('%s/bedfile_1000_222_%s.csv' %(Output_path,chromo), sep='\t',index=False, header=True)
     endtime = datetime.datetime.now()
     print (endtime - starttime)
 
